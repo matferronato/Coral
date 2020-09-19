@@ -1,9 +1,8 @@
-import spacy
 
 def returnEntities(sentence):
-    locationNames = []
+    locationNames = set()
     for ent in sentence.ents:
-        locationNames.append(ent.text)
+        locationNames.add(ent.text)
     return locationNames
 
 def protectNames(sentence_list, locationNames):
@@ -26,13 +25,7 @@ def protectNames(sentence_list, locationNames):
             i = i+1        
     return sentence_list
 
-def takeOffStopWords(sentence_list):
-    nlp = spacy.load('pt')
-    nlp.Defaults.stop_words.add("a")
-    nlp.Defaults.stop_words.add("e")
-    nlp.Defaults.stop_words.add("i")
-    nlp.Defaults.stop_words.add("o")
-    nlp.Defaults.stop_words.add("u")
+def takeOffStopWords(sentence_list, nlp):
     clean_sentence_list =[]
     for eachWord in sentence_list:
         if not (eachWord in nlp.Defaults.stop_words):
@@ -55,12 +48,10 @@ def removeUnderScore(tokens):
         if( "_" in tokens[i]):
             tokens[i] = tokens[i].replace("_"," ")
 
-def performNLP(sentence):
-
-    nlp = spacy.load('pt')
+def performNLP(sentence, nlp):
     tokens = nlp(sentence)
     sentence_list = protectNames(sentence.split(), returnEntities(tokens))
-    clean_sentence = takeOffStopWords(sentence_list)
+    clean_sentence = takeOffStopWords(sentence_list, nlp)
     assistant_sentence = lemming(clean_sentence)
     removeUnderScore(assistant_sentence)
     return assistant_sentence

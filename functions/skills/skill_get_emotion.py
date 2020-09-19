@@ -12,3 +12,8 @@ def getEmotion(current_sentence,i):
     elif(current_sentence[i+1] in goodWords):
         Happy1(2,1)
         create_audio("obrigada, eu não sei se eu sou tão " + current_sentence[i+1] + " assim, você é muito gentil")
+        
+def getAngry():
+    OhNo1(1,1)
+    create_audio("eu não acredito que você disse isso!")
+    
