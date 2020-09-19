@@ -9,6 +9,7 @@
 
 #python -m spacy download pt
 #python -m spacy download pt_core_news_md
+#testing enviroment
 from functions.google_speech_recognition.speech import microphone_check
 from functions.voice_return_handler.voice_return import create_audio
 from functions.animations.animations import runIntro, IntroFrame1, runSad, runBlink
