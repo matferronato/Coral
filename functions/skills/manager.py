@@ -5,6 +5,7 @@ from .skill_run_webbrowser import runWebBrowser
 from .skill_run_spy import runSpy
 from .skill_get_emotion import getEmotion
 from .skill_get_zipcode import getZipCode
+from .skill_get_movie_review import getMovieRecomendation, getMovieList
 from functions.voice_return_handler.voice_return import create_audio
 import time
 
@@ -36,4 +37,15 @@ def runSkillSet(assistant_name, tokens):
                 if (current_sentence[j] == "cep"):
                     getZipCode(current_sentence,j)
                     break
+                if (current_sentence[j] == "recomendar"):
+                    if("filme" in current_sentence):
+                        getMovieRecomendation(current_sentence[j+1:])
+                        break
+                if (current_sentence[j] == "lista" or current_sentence[j] == "listar" or current_sentence[j] == "listaria"):
+                    if("filme" in current_sentence):
+                        getMovieList(current_sentence[j+1:])
+                        break
+            if("mariana" in current_sentence):
+                create_audio("viu mariana, eu sou muito util também! hashtag chupa Alexa")
             break
+        

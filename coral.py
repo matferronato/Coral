@@ -32,7 +32,8 @@ def main():
         #runIntro()
         #runIntro()
         #sentence = microphone_check()
-        sentence = "coral qual o cep da rua gravatai"
+        sentence = "coral por favor me recomenda um filme musical?"
+        #sentence = "coral como eu faço para chegar da avenida berlim na cidade de  porto alegre até a rua nilo ruschel em porto alegre?"
         if(sentence == "não entendi") : continue
         if("*" in sentence) : 
             getAngry()

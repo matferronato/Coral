@@ -2,17 +2,17 @@ import time
 import os
 
 introSeconds = 8
-time_division = 100.0
+time_division = 300.0
 def runIntro():
-    IntroFrame1(introSeconds,100.0)
-    IntroFrame2(introSeconds,100.0)
-    IntroFrame3(introSeconds,100.0)
-    IntroFrame2(introSeconds,100.0)
-    IntroFrame1(introSeconds,100.0)
-    IntroFrame4(introSeconds,100.0)
-    IntroFrame5(introSeconds,100.0)
-    IntroFrame4(introSeconds,100.0)
-    IntroFrame1(introSeconds,100.0)
+    IntroFrame1(introSeconds,time_division)
+    IntroFrame2(introSeconds,time_division)
+    IntroFrame3(introSeconds,time_division)
+    IntroFrame2(introSeconds,time_division)
+    IntroFrame1(introSeconds,time_division)
+    IntroFrame4(introSeconds,time_division)
+    IntroFrame5(introSeconds,time_division)
+    IntroFrame4(introSeconds,time_division)
+    IntroFrame1(introSeconds,time_division)
 
 def runSad():
     Sad1(30,100.0)

@@ -5,25 +5,29 @@ def returnEntities(sentence):
         locationNames.add(ent.text)
     return locationNames
 
-def protectNames(sentence_list, locationNames):
+def protectNames(sentence, locationNames):
     for eachLocation in locationNames:
-        sameWord = True
-        wordFound = False
-        i = 0
-        while i < len(sentence_list):
-            if eachLocation.split()[0] in sentence_list[i]:
-                for j in range(0, len(eachLocation.split())):
-                    if( i+j > len(sentence_list)) : break
-                    if(eachLocation.split()[j] != sentence_list[i+j]):
-                        sameWord = False
-                if sameWord == True:
-                    for j in range(1, len(eachLocation.split())):
-                        sentence_list.pop(i+1)
-                    sentence_list[i] = eachLocation.replace(" ", "_")
-                    wordFound = True
-                sameWord = True
-            i = i+1        
-    return sentence_list
+        if eachLocation in sentence:
+            sentence = sentence.replace(eachLocation, eachLocation.replace(" ", "_"))
+    return sentence.split()
+    #for eachLocation in locationNames:
+    #    sameWord = True
+    #    wordFound = False
+    #    i = 0
+    #    while i < len(sentence_list):
+    #        if eachLocation.split()[0] in sentence_list[i]:
+    #            for j in range(0, len(eachLocation.split())):
+    #                if( i+j > len(sentence_list)) : break
+    #                if(eachLocation.split()[j] != sentence_list[i+j]):
+    #                    sameWord = False
+    #            if sameWord == True:
+    #                for j in range(1, len(eachLocation.split())):
+    #                    sentence_list.pop(i+1)
+    #                sentence_list[i] = eachLocation.replace(" ", "_")
+    #                wordFound = True
+    #            sameWord = True
+    #        i = i+1        
+    #return sentence_list
 
 def takeOffStopWords(sentence_list, nlp):
     clean_sentence_list =[]
@@ -36,6 +40,7 @@ def takeOffStopWords(sentence_list, nlp):
 def lemming(clean_sentence):
     assistante_sentence = []
     for i in range(0,len(clean_sentence)):
+        #assistante_sentence.append(clean_sentence[i].lemma_)
         if clean_sentence[i].pos_ == 'VERB':
             assistante_sentence.append(clean_sentence[i].lemma_)
         else:
@@ -50,7 +55,7 @@ def removeUnderScore(tokens):
 
 def performNLP(sentence, nlp):
     tokens = nlp(sentence)
-    sentence_list = protectNames(sentence.split(), returnEntities(tokens))
+    sentence_list = protectNames(sentence, returnEntities(tokens))
     clean_sentence = takeOffStopWords(sentence_list, nlp)
     assistant_sentence = lemming(clean_sentence)
     removeUnderScore(assistant_sentence)

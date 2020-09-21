@@ -10,13 +10,16 @@ def getRoutes(current_sentence,i):
     translator = Translator() 
     create_audio("hum, preciso pensar um pouco, deixa eu ver meus mapas...")  
     if(len(current_sentence) % 2 != 0):
+        print("a")
         if current_sentence[-1] == "dirigir" or current_sentence[-1] == "carro":
             travelMode = "Driving"
         elif current_sentence[-1] == "caminhar" or current_sentence[-1] == "pé":
             travelMode = "Walking"
+        else:
+            travelMode = "Driving"
         current_sentence.pop()
-    else:   
-        travelMode = "Driving"
+    else:
+        travelMode = "Driving" 
     if len(current_sentence) == 4:
         origin = current_sentence[i].replace("rua","street") + " city " + current_sentence[i+1]
         dest   = current_sentence[i+2].replace("rua","street") + " city " + current_sentence[i+3]
@@ -26,6 +29,8 @@ def getRoutes(current_sentence,i):
     encodeOrigin = urllib.parse.quote(origin, safe='')
     encodedDest = urllib.parse.quote(dest, safe='') 
     routeUrl = "http://dev.virtualearth.net/REST/V1/Routes/"+ travelMode +"?wp.0=" + encodeOrigin + "&wp.1=" + encodedDest + "&key=" + bingMapsKey
+    print(routeUrl)   
+    
     request = urllib.request.Request(routeUrl)
     response = urllib.request.urlopen(request)
     r = response.read().decode(encoding="utf-8")
