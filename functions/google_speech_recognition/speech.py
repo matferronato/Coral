@@ -1,7 +1,7 @@
 #pip install SpeechRecognition
 import speech_recognition as sr
 
-laranja = 0
+import time
 
 def microphone_check():
     #Habilita o microfone para ouvir o usuario
@@ -15,3 +15,5 @@ def microphone_check():
             return frase.casefold()
         except sr.UnknownValueError:
             return "não entendi"
+
+

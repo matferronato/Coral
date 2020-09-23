@@ -9,43 +9,40 @@ from .skill_get_movie_review import getMovieRecomendation, getMovieList
 from functions.voice_return_handler.voice_return import create_audio
 import time
 
-def runSkillSet(assistant_name, tokens):   
-    #print(tokens)
-    time.sleep(3)
-    for i in range(0, len(tokens)):
-        if assistant_name == tokens[i]:
-            current_sentence = tokens[i+1:]
-            for j in range(0, len(current_sentence)):
-                if(current_sentence[j] == "acesso" or current_sentence[j] == "acessa" or current_sentence[j] == "acessar"):
-                    runWebBrowser(current_sentence,j)
-                    break
-                if(current_sentence[j] == "defina" or current_sentence[j] == "definir"):
-                    getWikipedia(current_sentence,j)
-                    break
-                if(current_sentence[j] == "horas"):
-                    getTime(current_sentence,j)
-                    break
-                if (current_sentence[j] == "chegar"):
-                    getRoutes(current_sentence[j+1:],j)
-                    break
-                if (current_sentence[j] == "achar"):
-                    getEmotion(current_sentence,j)
-                    break
-                if (current_sentence[j] == "mim"):
-                    runSpy()
-                    break
-                if (current_sentence[j] == "cep"):
-                    getZipCode(current_sentence,j)
-                    break
-                if (current_sentence[j] == "recomendar"):
-                    if("filme" in current_sentence):
-                        getMovieRecomendation(current_sentence[j+1:])
-                        break
-                if (current_sentence[j] == "lista" or current_sentence[j] == "listar" or current_sentence[j] == "listaria"):
-                    if("filme" in current_sentence):
-                        getMovieList(current_sentence[j+1:])
-                        break
-            if("mariana" in current_sentence):
-                create_audio("viu mariana, eu sou muito util também! hashtag chupa Alexa")
+def runSkillSet(tokens):   
+    for j in range(0, len(tokens)):
+        if ("recomendar" == tokens or "achar" in tokens):
+            if("filme" in tokens):
+                print("oi")
+                getMovieRecomendation(tokens[j+1:])
+                break
+            else:
+                getEmotion(tokens,j)
+                break
+        if (tokens[j] == "lista" or tokens[j] == "listar" or tokens[j] == "listaria"):
+            if("filme" in tokens or "filmes" in tokens):
+                getMovieList(tokens[j+1:])
+                break
+        if(tokens[j] == "acesso" or tokens[j] == "acessa" or tokens[j] == "acessar"):
+            runWebBrowser(tokens,j)
             break
+        if(tokens[j] == "defina" or tokens[j] == "definir"):
+            getWikipedia(tokens,j)
+            break
+        if(tokens[j] == "horas"):
+            getTime(tokens,j)
+            break
+        if (tokens[j] == "chegar"):
+            getRoutes(tokens[j+1:],j)
+            break
+
+        if (tokens[j] == "mim"):
+            runSpy()
+            break
+        if (tokens[j] == "cep"):
+            getZipCode(tokens,j)
+            break
+
+    if("mariana" in tokens):
+        create_audio("viu mariana, eu sou muito util também! hashtag chupa Alexa")
         

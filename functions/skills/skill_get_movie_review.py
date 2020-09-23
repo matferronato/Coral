@@ -22,14 +22,6 @@ def getMovieInfo(movieNumeber):
         i=i+1
     return re.sub('<[^>]+>', '', str(content))
 
-
-def findGenere(movieInfo):
-    allGeneres = ["ação", "todos","terror","animação", "aventura","arte marcial", "comédia","ficção ciêntífica", "musical"]
-    for eachGenere in allGeneres:
-        if eachGenere in movieInfo:
-            return eachGenere
-    return ""
-
 def getName(content):
     nameClass = content.find("div", {"class": "titlebar_02 margin_10b"})
     nameInfo = nameClass.find("a")
@@ -68,7 +60,10 @@ def getMostViewed(genero, searchType, maxDepth):
     genDict = {"ação": "genero-13025/", "todos":"","terror":"genero-13009/",
                "animação": "genero-13026/", "aventura": "genero-13001/",
                "arte marcial": "genero-13016/", "comédia": "genero-13005/",
-               "ficção ciêntífica":"genero-13021/", "musical": "genero-13043/"
+               "ficção ciêntífica":"genero-13021/", "musical": "genero-13043/",
+               "documentário":"genero-13007/", "fantasia":"genero-13012/","faroeste":"genero-13019/",
+               "guerra":"genero-13014/", "policial":"genero-13018/", "romance":"genero-13024/", 
+               "suspense":"genero-13023/"
                }
       
 
@@ -95,7 +90,10 @@ def getRandomMovie(genero, searchType, badMovie=False):
     genDict = {"ação": "genero-13025/", "todos":"","terror":"genero-13009/",
                "animação": "genero-13026/", "aventura": "genero-13001/",
                "arte marcial": "genero-13016/", "comédia": "genero-13005/",
-               "ficção ciêntífica":"genero-13021/", "musical": "genero-13043/"
+               "ficção ciêntífica":"genero-13021/", "musical": "genero-13043/",
+               "documentário":"genero-13007/", "fantasia":"genero-13012/","faroeste":"genero-13019/",
+               "guerra":"genero-13014/", "policial":"genero-13018/", "romance":"genero-13024/", 
+               "suspense":"genero-13023/"
                }
       
 
@@ -138,9 +136,9 @@ def getRandomMovie(genero, searchType, badMovie=False):
             while ("repetir" in reply):
                 create_audio(" que tal o filme " + name + " do " + genero + " e nota " + str(score) + "...... quer saber mais sobre este filme? Caso queira que eu repita é só dizer repetir")
                 reply = microphone_check()
-            if ("sim" in reply or "quero" in reply or "gostaria" in reply or "saber" in reply):
+            if (("sim" in reply or "quero" in reply or "gostaria" in reply or "saber" in reply) and not("não" in reply)):
                 create_audio(str(content))
-                create_audio("esta satisfeito com esse filme?")
+                create_audio("está satisfeito com esse filme?")
                 reply = microphone_check()
                 if("não" in reply):
                     newRandom = 1
@@ -149,14 +147,26 @@ def getRandomMovie(genero, searchType, badMovie=False):
                     elif(movieToShow == 99):
                         movieToShow = 98
                     else:
-                        while newRandom <= movieToShow
-                            newRandom = random.randint(1, 100):
+                        while newRandom <= movieToShow:
+                            newRandom = random.randint(1, 100)
                         movieToShow = newRandom
                     continue
+                else:
+                    create_audio("tudo bem")
             break
         currentDepth = currentDepth + 1    
         if currentDepth == maxDepth:
             break
+
+def findGenere(movieInfo):
+    allGeneres = set(["ação", "todos","terror","animação", \
+                "aventura","arte marcial", "comédia","ficção ciêntífica",\
+                "musical", "documentário", "faroeste", "romance",\
+                "policial", "fantasia", "guerra", "suspense"])
+    for eachGenere in allGeneres:
+        if eachGenere in movieInfo:
+            return eachGenere
+    return ""
             
 def getMovieList(movieInfo):
     wiki1(1,100)
@@ -178,6 +188,7 @@ def getMovieList(movieInfo):
 
     
 def getMovieRecomendation(movieInfo):
+    print("oioi")
     wiki1(1,100)
     if ("horrivel" in movieInfo or "ruim" in movieInfo):
         badMovie = True
