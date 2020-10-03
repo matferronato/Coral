@@ -10,24 +10,6 @@ def protectNames(sentence, locationNames):
         if eachLocation in sentence:
             sentence = sentence.replace(eachLocation, eachLocation.replace(" ", "_"))
     return sentence.split()
-    #for eachLocation in locationNames:
-    #    sameWord = True
-    #    wordFound = False
-    #    i = 0
-    #    while i < len(sentence_list):
-    #        if eachLocation.split()[0] in sentence_list[i]:
-    #            for j in range(0, len(eachLocation.split())):
-    #                if( i+j > len(sentence_list)) : break
-    #                if(eachLocation.split()[j] != sentence_list[i+j]):
-    #                    sameWord = False
-    #            if sameWord == True:
-    #                for j in range(1, len(eachLocation.split())):
-    #                    sentence_list.pop(i+1)
-    #                sentence_list[i] = eachLocation.replace(" ", "_")
-    #                wordFound = True
-    #            sameWord = True
-    #        i = i+1        
-    #return sentence_list
 
 def takeOffStopWords(sentence_list, nlp):
     clean_sentence_list =[]

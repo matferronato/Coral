@@ -7,8 +7,8 @@ import re
 
 def getRoutes(current_sentence,i):
     bingMapsKey = "AvE7iAnpF8-0xQCuen5EvgIKdYxK7utRGXKDqk-wcQTn9DREo_I0gDvyb3znKJDk"
-    translator = Translator() 
-    create_audio("hum, preciso pensar um pouco, deixa eu ver meus mapas...")  
+    translator = Translator()
+    create_audio("hum, preciso pensar um pouco, deixa eu ver meus mapas...")
     if(len(current_sentence) % 2 != 0):
         print("a")
         if current_sentence[-1] == "dirigir" or current_sentence[-1] == "carro":
@@ -19,7 +19,7 @@ def getRoutes(current_sentence,i):
             travelMode = "Driving"
         current_sentence.pop()
     else:
-        travelMode = "Driving" 
+        travelMode = "Driving"
     if len(current_sentence) == 4:
         origin = current_sentence[i].replace("rua","street") + " city " + current_sentence[i+1]
         dest   = current_sentence[i+2].replace("rua","street") + " city " + current_sentence[i+3]
@@ -27,21 +27,21 @@ def getRoutes(current_sentence,i):
         origin = current_sentence[i].replace("rua","street") + " city " + getCurrentLocattion()
         dest   = current_sentence[i+1].replace("rua","street") + " city " + getCurrentLocattion()
     encodeOrigin = urllib.parse.quote(origin, safe='')
-    encodedDest = urllib.parse.quote(dest, safe='') 
+    encodedDest = urllib.parse.quote(dest, safe='')
     routeUrl = "http://dev.virtualearth.net/REST/V1/Routes/"+ travelMode +"?wp.0=" + encodeOrigin + "&wp.1=" + encodedDest + "&key=" + bingMapsKey
-    print(routeUrl)   
-    
+    print(routeUrl)
+
     request = urllib.request.Request(routeUrl)
     response = urllib.request.urlopen(request)
     r = response.read().decode(encoding="utf-8")
     result = json.loads(r)
-    itineraryItems = result["resourceSets"][0]["resources"][0]["routeLegs"][0]["itineraryItems"]                    
+    itineraryItems = result["resourceSets"][0]["resources"][0]["routeLegs"][0]["itineraryItems"]
     for item in itineraryItems:
         translated = translator.translate(item["instruction"]["text"], src='en', dest='pt')
         sentence = translated.text
-        create_audio(sentence)  
-        
-        
+        create_audio(sentence)
+
+
 def getCurrentLocattion():
     url = 'http://ipinfo.io/json'
     response = urllib.request.urlopen(url)

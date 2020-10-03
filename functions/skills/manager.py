@@ -9,11 +9,10 @@ from .skill_get_movie_review import getMovieRecomendation, getMovieList
 from functions.voice_return_handler.voice_return import create_audio
 import time
 
-def runSkillSet(tokens):   
+def runSkillSet(tokens):
     for j in range(0, len(tokens)):
-        if ("recomendar" == tokens or "achar" in tokens):
+        if ("recomendar" in tokens or "achar" in tokens):
             if("filme" in tokens):
-                print("oi")
                 getMovieRecomendation(tokens[j+1:])
                 break
             else:
@@ -45,4 +44,3 @@ def runSkillSet(tokens):
 
     if("mariana" in tokens):
         create_audio("viu mariana, eu sou muito util também! hashtag chupa Alexa")
-        
